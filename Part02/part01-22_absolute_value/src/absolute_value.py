@@ -1,5 +1,0 @@
-# Write your solution here
-number = int(input("Please type in a numerb: "))
-if number < 0:
-    number = number * -1
-print(f"The absolute value of this number is {number}")
