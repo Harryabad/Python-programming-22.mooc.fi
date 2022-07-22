@@ -2,129 +2,38 @@
 
 def sudoku_grid_correct(sudoku: list):
 
-    duplicates1 = set()
-    duplicates2 = set()
-    duplicates3 = set()
-    duplicates4 = set()
-    duplicates5 = set()
-    duplicates6 = set()
-    duplicates7 = set()
-    duplicates8 = set()
-    duplicates9 = set()
-
-    gridDuplicates = []
     
-    newMat1 = [sudoku[0][0:3],
-     sudoku[1][0:3],
-      sudoku[2][0:3]]
-
-    newMat2 = [sudoku[0][3:6],
-     sudoku[1][3:6],
-      sudoku[2][3:6]]
-
-    newMat3 = [sudoku[0][6:9],
-     sudoku[1][6:9],
-      sudoku[2][6:9]]
-
-    newMat4 = [sudoku[3][0:3],
-     sudoku[4][0:3],
-      sudoku[5][0:3]]
-
-    newMat5 = [sudoku[3][3:6],
-     sudoku[4][3:6],
-      sudoku[5][3:6]]
-
-    newMat6 = [sudoku[3][6:9],
-     sudoku[4][6:9],
-      sudoku[5][6:9]]
-
-    newMat7 = [sudoku[6][0:3],
-     sudoku[7][0:3],
-      sudoku[8][0:3]]
-
-    newMat8 = [sudoku[6][3:6],
-     sudoku[7][3:6],
-      sudoku[8][3:6]]
-
-    newMat9 = [sudoku[6][6:9],
-     sudoku[7][6:9],
-      sudoku[8][6:9]]
-
-    #print(newMat6)
-
-    for row in newMat1:
-        for cell in row:
-            if cell > 0 and cell in duplicates1:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates1.add(cell)
-    
-    for row in newMat2:
-        for cell in row:
-            if cell > 0 and cell in duplicates2:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates2.add(cell)
- 
-    for row in newMat3:
-        for cell in row:
-            if cell > 0 and cell in duplicates3:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates3.add(cell)
-
-    for row in newMat4:
-        for cell in row:
-            if cell > 0 and cell in duplicates4:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates4.add(cell) 
-
-    for row in newMat5:
-        for cell in row:
-            if cell > 0 and cell in duplicates5:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates5.add(cell)
-
-    for row in newMat6:
-        for cell in row:
-            if cell > 0 and cell in duplicates6:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates6.add(cell)
-
-    for row in newMat7:
-        for cell in row:
-            if cell > 0 and cell in duplicates7:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates7.add(cell)
-
-    for row in newMat8:
-        for cell in row:
-            if cell > 0 and cell in duplicates8:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates8.add(cell)
-
-    for row in newMat9:
-        for cell in row:
-            if cell > 0 and cell in duplicates9:
-                return False ## duplicate = ture therefore row is incorrect (FALSE)
-            elif cell > 0:
-                duplicates9.add(cell)
-
-    
-    for i in range(0,8,1):
+    for i in range(0,9):
         if row_correct(sudoku, i) == False:
             return False
 
-    for i in range(0,8,1):
+    for i in range(0,9):
         if column_correct(sudoku, i) == False:
             return False
+
+    for row in range(0,9,3):
+        for column in range(0,9,3):
+            if block_correct(sudoku, row, column) == False:
+                return False
     
     
+    return True
+
+def block_correct(sudoku: list, row_no: int, column_no: int):
+
+    duplicates = set()
+    
+    newMat = [sudoku[row_no][column_no:column_no+3],
+     sudoku[row_no+1][column_no:column_no+3],
+      sudoku[row_no+2][column_no:column_no+3]]
+
+    for row in newMat:
+        for cell in row:
+            if cell > 0 and cell in duplicates:
+                return False ## duplicate = true therefore row is incorrect (FALSE)
+            elif cell > 0:
+                duplicates.add(cell)
+            #print(cell)
     return True
 
 def row_correct(sudoku: list, row_no: int):
